@@ -1,8 +1,5 @@
 from pydoc2md import main
 
-# main(
-#     "/Users/federicoclaudi/Documents/Github/BrainRender/brainrender",
-#     "/Users/federicoclaudi/Documents/Github/BrainRender/doctest",
-# )
+main("/Users/federicoclaudi/Documents/Github/BrainRender/brainrender", "test")
 
-main("pydoc2md", "Docs")
+# main("pydoc2md", "Docs")

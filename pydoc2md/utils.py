@@ -46,7 +46,7 @@ def parse_pyfile(filepath):
             fun for fun in ast.walk(x) if isinstance(fun, ast.FunctionDef)
         ]
         out[x.lineno] = {}
-        out[x.lineno]["islcass"] = True
+        out[x.lineno]["isclass"] = True
         out[x.lineno]["name"] = x.name
         out[x.lineno]["funcs"] = [fun.name for fun in funcs]
         out[x.lineno]["cls"] = x
@@ -61,7 +61,14 @@ def parse_pyfile(filepath):
                 [l for l in unparse(fun).split("\n") if "def " in l][0]
             )
 
+    # Get the lineno of all functions that are classes methods
+    methods = []
+    for x in out.values():
+        methods.extend(x["funcs_lines"])
+
     for f in functions:
+        if f.lineno in methods:
+            continue
         out[f.lineno] = dict(
             name=f.name,
             isclass=False,

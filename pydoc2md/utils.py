@@ -1,6 +1,7 @@
 from mdutils.mdutils import MdUtils
 import ast
 from astunparse import unparse
+import collections
 
 # ----------------------------------- paths ----------------------------------#
 
@@ -37,31 +38,104 @@ def parse_pyfile(filepath):
 
     # get all classes from the given python file.
     classes = [c for c in ast.walk(p) if isinstance(c, ast.ClassDef)]
+    functions = [c for c in ast.walk(p) if isinstance(c, ast.FunctionDef)]
 
     out = dict()
     for x in classes:
         funcs = [
             fun for fun in ast.walk(x) if isinstance(fun, ast.FunctionDef)
         ]
-        out[x.name] = {}
-        out[x.name]["name"] = x.name
-        out[x.name]["funcs"] = [fun.name for fun in funcs]
-        out[x.name]["cls"] = x
-        out[x.name]["line"] = x.lineno
-        out[x.name]["doc"] = ast.get_docstring(x)
-        out[x.name]["funcs_docs"] = [ast.get_docstring(fun) for fun in funcs]
-        out[x.name]["funcs_lines"] = [func.lineno for func in funcs]
+        out[x.lineno] = {}
+        out[x.lineno]["islcass"] = True
+        out[x.lineno]["name"] = x.name
+        out[x.lineno]["funcs"] = [fun.name for fun in funcs]
+        out[x.lineno]["cls"] = x
+        out[x.lineno]["line"] = x.lineno
+        out[x.lineno]["doc"] = ast.get_docstring(x)
+        out[x.lineno]["funcs_docs"] = [ast.get_docstring(fun) for fun in funcs]
+        out[x.lineno]["funcs_lines"] = [func.lineno for func in funcs]
 
-        out[x.name]["def"] = []  # the def func(args) line of each function
+        out[x.lineno]["def"] = []  # the def func(args) line of each function
         for fun in funcs:
-            out[x.name]["def"].append(
+            out[x.lineno]["def"].append(
                 [l for l in unparse(fun).split("\n") if "def " in l][0]
             )
 
-    return out
+    for f in functions:
+        out[f.lineno] = dict(
+            name=f.name,
+            isclass=False,
+            func=f,
+            line=f.lineno,
+            doc=ast.get_docstring(f),
+        )
+        out[f.lineno]["def"] = [
+            l for l in unparse(f).split("\n") if "def " in l
+        ][0]
+
+    return collections.OrderedDict(sorted(out.items()))
 
 
 # -------------------------------- Write to md -------------------------------#
+def add_class_to_md(md, cl):
+    """
+        Adds a class docstring and definition to the
+        md file, including all class methods.
+    """
+    # header
+    md.new_paragraph("&nbsp;")
+    md.new_paragraph("--------")
+    md.new_paragraph("--------")
+    md.new_header(level=1, title=f'**{cl["name"]}**')
+
+    if cl["doc"] is not None:
+        md.new_line("```")
+        md.new_line(cl["doc"])
+        md.new_line("```")
+    else:
+        md.new_paragraph("")
+
+    for func, doc, lineno, df in zip(
+        cl["funcs"], cl["funcs_docs"], cl["funcs_lines"], cl["def"]
+    ):
+        md.new_paragraph("--------")
+        md.new_header(level=2, title=f"line: {lineno} - `{func}`")
+
+        md.new_line("```")
+        md.new_line(df + "\n```\n")
+
+        if doc is not None:
+            for n, par in enumerate(doc.split("\n")):
+                if ":param" not in par:
+                    md.write(f'{">" if n ==0 else ""}{par}')
+                else:
+                    md.new_line(par)
+        else:
+            md.new_paragraph(f">  no docstring")
+
+
+def add_func_to_md(md, cl):
+    """
+        Adds a function docstring and definition to the
+        md file
+    """
+    md.new_paragraph("&nbsp;")
+    md.new_paragraph("--------")
+    md.new_header(level=1, title=f"line: {cl['line']} - `{cl['name']}`")
+
+    md.new_line("```")
+    md.new_line(cl["def"] + "\n```\n")
+
+    if cl["doc"] is not None:
+        for n, par in enumerate(cl["doc"].split("\n")):
+            if ":param" not in par:
+                md.write(f'{">" if n ==0 else ""}{par}')
+            else:
+                md.new_line(par)
+    else:
+        md.new_paragraph(f">  no docstring")
+
+
 def write_to_md(data, savepath):
     """
         Writes to a markdown file the content of a .py file.
@@ -77,36 +151,12 @@ def write_to_md(data, savepath):
 
     # Iterate classes
     for cl in data.values():
-        # header
-        md.new_paragraph("&nbsp;")
-        md.new_paragraph("--------")
-        md.new_paragraph("--------")
-        md.new_header(level=1, title=f'**{cl["name"]}**')
 
-        if cl["doc"] is not None:
-            md.new_line("```")
-            md.new_line(cl["doc"])
-            md.new_line("```")
+        # class/function specific
+        if cl["isclass"]:
+            add_class_to_md(md, cl)
         else:
-            md.new_paragraph("")
-
-        for func, doc, lineno, df in zip(
-            cl["funcs"], cl["funcs_docs"], cl["funcs_lines"], cl["def"]
-        ):
-            md.new_paragraph("--------")
-            md.new_header(level=2, title=f"line: {lineno} - `{func}`")
-
-            md.new_line("```")
-            md.new_line(df + "\n```\n")
-
-            if doc is not None:
-                for n, par in enumerate(doc.split("\n")):
-                    if ":param" not in par:
-                        md.write(f'{">" if n ==0 else ""}{par}')
-                    else:
-                        md.new_line(par)
-            else:
-                md.new_paragraph(f">  no docstring")
+            add_func_to_md(md, cl)
 
     md.new_table_of_contents(table_title="Contents", depth=2)
     md.create_md_file()

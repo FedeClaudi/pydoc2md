@@ -1,31 +1,30 @@
 from pathlib import Path
+from collections import OrderedDict
 from pydoc2md.utils.path_utils import (
     get_subdirs,
-    get_pyfiles,
     get_folder_structure,
 )
 from pydoc2md.utils.parse import parse_pyfile
-from pydoc2md.utils.write import py_to_md, write_summary_file
+from pydoc2md.utils.write import py_to_md, write_summary_file, folder_md
 
 
-def parse_dir(fld, store):
+def add_dirs_to_store(fld, store):
     """
         Iteratively parse a folder and all its subfolders,
-        meanwhile storing each file's results in `store`.
+        meanwhile file's results in `store`.
 
         :param fld: pathlib.Path object with a folder
         :param store: dictionary, updated with each file's results
     """
-    # Get python files and subdirs
-    pyfiles = get_pyfiles(fld)
+    # Create an entry for folder .md overview file
+    store[fld / (fld.name + ".md")] = OrderedDict(
+        sorted({"isclass": None}.items())
+    )
+
+    # Iterate over subdirs
     subdirs = get_subdirs(fld)
-
-    # Get funcs
-    for fl in pyfiles:
-        store[fl] = parse_pyfile(fl)
-
     for sd in subdirs:
-        parse_dir(sd, store)
+        add_dirs_to_store(sd, store)
 
 
 def main(folder, savefolder, keep_structure=True):
@@ -53,15 +52,20 @@ def main(folder, savefolder, keep_structure=True):
 
     # Parse files
     store = {}
-    parse_dir(folder, store)
+    for leaf in leaves:
+        end = leaf.pop(-1)
+        leaf.append(end.split("+")[-1])
+
+        path = Path(*leaf)
+        store[path] = parse_pyfile(folder.parent / path)
+
+    add_dirs_to_store(folder, store)
 
     # Create save folder
     savefolder.mkdir(exist_ok=True)
 
-    # Create summary file
-    write_summary_file(pathtree, savefolder / "summary.md")
-
     # save markdowns for single files
+    paths = {}
     for fp, data in store.items():
         # Get savepath
         if not keep_structure:
@@ -70,9 +74,21 @@ def main(folder, savefolder, keep_structure=True):
         else:
             # Mirror folder structure
             parent, fl = fp.parent.name, fp.name
-            path = [leaf for leaf in leaves if leaf[-1] == parent + fl]
+            path = [
+                leaf
+                for leaf in leaves
+                if leaf[-1] == fl and leaf[-2] == parent
+            ]
 
-            if not path or len(path) > 1:
+            if not path or path[0][-1].endswith(".md"):
+                if fp.parent.name.startswith(
+                    "__"
+                ) or fp.parent.name.startswith("."):
+                    continue
+
+                savepath = fp
+                path = None
+            elif len(path) > 1:
                 raise ValueError(
                     "Something went wrong while re-creating folder structure"
                 )
@@ -81,8 +97,20 @@ def main(folder, savefolder, keep_structure=True):
                 savepath.mkdir(exist_ok=True)
 
                 savepath = savepath / fl
+
         savepath = str(savepath).replace(".py", ".md")
+
+        if path is not None:
+            paths["".join(*path)] = (path[0], Path(savepath))
+        else:
+            paths[fp.parent.name] = (None, Path(savepath))
 
         # Save to .md
         if data:
-            py_to_md(data, savepath)
+            if "isclass" not in data.keys():
+                py_to_md(data, savepath)
+            else:
+                folder_md(savepath)
+
+    # Create summary file
+    write_summary_file(paths, leaves, savefolder / "summary.md")

@@ -1,5 +1,4 @@
 from mdutils.mdutils import MdUtils
-from pathlib import Path
 
 
 def add_class_to_md(md, cl):
@@ -88,20 +87,33 @@ def py_to_md(data, savepath):
     md.create_md_file()
 
 
-def write_summary_file(pathtree, savepath):
+def folder_md(savepath):
+    print(f"writing - {savepath}")
+    md = MdUtils(file_name=str(savepath))
+    md.create_md_file()
+
+
+def write_summary_file(paths, leaves, savepath):
     print(f"writing - {savepath}")
     md = MdUtils(file_name=str(savepath))
 
-    # Save path trees to a temp file
-    temp = str(savepath.parent / "temp.txt")
-    pathtree.save2file(temp)
+    for leaf in leaves:
+        try:
+            name = [
+                name
+                for name, (path, filepath) in paths.items()
+                if path == leaf
+            ][0]
+        except IndexError:
+            path, filepath = paths[leaf[-2]]
+        else:
+            path, filepath = paths[name]
 
-    with open(temp, "r") as tmp:
-        tree = tmp.read()
+        if path is None:
+            tabs = len(leaf) - 3
+        else:
+            tabs = len(path) - 2
 
-    Path(temp).unlink()
-
-    # Add the path tree as tree view
-    md.new_paragraph("```\n" + tree + "\n```")
+        md.new_line("    " * tabs + "* " + f"[{filepath.name}]({filepath})")
 
     md.create_md_file()

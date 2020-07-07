@@ -23,7 +23,7 @@ def get_folder_structure(folder):
                 continue
             tree.create_node(
                 tag=fl.name,
-                identifier=fld.name + fl.name,
+                identifier=fld.name + "+" + fl.name,
                 parent=fld.name,
                 data=Folder(fl),
             )

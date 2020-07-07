@@ -31,10 +31,10 @@ For instance, the `.md` files in [Docs](Docs) where generated with
 ```
 
 ## Installation
-Currently you can isntall  with:
+You can isntall  with:
 
 ```
-pip install git+https://github.com/FedeClaudi/pydoc2md.git
+pip install pydoc2md
 ```
 
 though a pip installable version will be released when the project is more mature.

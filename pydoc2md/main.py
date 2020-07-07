@@ -1,5 +1,7 @@
 from pathlib import Path
-from pydoc2md.utils import get_subdirs, get_pyfiles, parse_pyfile, write_to_md
+from pydoc2md.utils.path_utils import get_subdirs, get_pyfiles
+from pydoc2md.utils.parse import parse_pyfile
+from pydoc2md.utils.write import py_to_md
 
 
 def parse_dir(fld, store):
@@ -52,4 +54,4 @@ def main(folder, savefolder):
         savepath = str(savepath).replace(".py", ".md")
 
         if data:
-            write_to_md(data, savepath)
+            py_to_md(data, savepath)

@@ -1,7 +1,7 @@
 from mdutils.mdutils import MdUtils
 
 
-def add_class_to_md(md, cl):
+def add_class_to_md(md, cl, githubpath=None):
     """
         Adds a class docstring and definition to the
         md file, including all class methods.
@@ -13,9 +13,8 @@ def add_class_to_md(md, cl):
     md.new_header(level=1, title=f'**{cl["name"]}**')
 
     if cl["doc"] is not None:
-        md.new_line("```")
-        md.new_line(cl["doc"])
-        md.new_line("```")
+        md.insert_code(cl["doc"])
+
     else:
         md.new_paragraph("")
 
@@ -24,21 +23,30 @@ def add_class_to_md(md, cl):
     ):
         md.new_paragraph("--------")
         md.new_header(level=2, title=f"line: {lineno} - `{func}`")
+        if githubpath is not None:
+            url = githubpath + f"#L{lineno}"
+            md.new_line(
+                "Check the "
+                + md.new_inline_link(
+                    link=url, text="source code", bold_italics_code="cbi"
+                )
+                + " online"
+            )
 
-        md.new_line("```")
-        md.new_line(df + "\n```\n")
+        md.new_header(level=4, title="function definition")
+        md.insert_code(df, language="python")
 
-        if doc is not None:
-            for n, par in enumerate(doc.split("\n")):
-                if ":param" not in par:
-                    md.write(f'{">" if n ==0 else ""}{par}')
-                else:
-                    md.new_line(par)
+        md.new_header(level=5, title="docstring")
+        md.new_line()
+        if doc is None:
+            doc = """ no docstring """
         else:
-            md.new_paragraph(f">  no docstring")
+            doc = "    " + doc.replace("\n", "\n    ")
+
+        md.insert_code('\n"""\n' + doc + '\n"""', language="python")
 
 
-def add_func_to_md(md, cl):
+def add_func_to_md(md, cl, githubpath=None):
     """
         Adds a function docstring and definition to the
         md file
@@ -47,20 +55,31 @@ def add_func_to_md(md, cl):
     md.new_paragraph("--------")
     md.new_header(level=1, title=f"line: {cl['line']} - `{cl['name']}`")
 
-    md.new_line("```")
-    md.new_line(cl["def"] + "\n```\n")
+    md.new_header(level=4, title="function definition")
 
-    if cl["doc"] is not None:
-        for n, par in enumerate(cl["doc"].split("\n")):
-            if ":param" not in par:
-                md.write(f'{">" if n ==0 else ""}{par}')
-            else:
-                md.new_line(par)
+    if githubpath is not None:
+        url = githubpath + f'#L{cl["line"]}'
+        md.new_line(
+            "Check the "
+            + md.new_inline_link(
+                link=url, text="source code", bold_italics_code="cbi"
+            )
+            + " online"
+        )
+
+    md.insert_code(cl["def"], language="python")
+
+    md.new_header(level=5, title="docstring")
+    md.new_line()
+    if cl["doc"] is None:
+        doc = """ no docstring """
     else:
-        md.new_paragraph(f">  no docstring")
+        doc = "    " + cl["doc"].replace("\n", "\n    ")
+
+    md.insert_code('\n"""\n' + doc + '\n"""', language="python")
 
 
-def py_to_md(data, savepath):
+def py_to_md(data, savepath, githubpath=None):
     """
         Writes to a markdown file the content of a .py file.
         It writes the name of all the classes and their methods with
@@ -70,7 +89,9 @@ def py_to_md(data, savepath):
         :param data: dictionary of classes that belong to a .py,
                         from parse_pyfile
         :param savepath: str, path to the .md file to save
+        :param githubpath: str, optional. URL to the same .py on github
     """
+
     print(f"writing - {savepath}")
     md = MdUtils(file_name=savepath)
 
@@ -79,9 +100,9 @@ def py_to_md(data, savepath):
 
         # class/function specific
         if cl["isclass"]:
-            add_class_to_md(md, cl)
+            add_class_to_md(md, cl, githubpath=githubpath)
         else:
-            add_func_to_md(md, cl)
+            add_func_to_md(md, cl, githubpath=githubpath)
 
     md.new_table_of_contents(table_title="Contents", depth=2)
     md.create_md_file()

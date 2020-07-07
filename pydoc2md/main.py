@@ -6,6 +6,7 @@ from pydoc2md.utils.path_utils import (
 )
 from pydoc2md.utils.parse import parse_pyfile
 from pydoc2md.utils.write import py_to_md, write_summary_file, folder_md
+from pydoc2md.utils.web import check_url
 
 
 def add_dirs_to_store(fld, store):
@@ -27,7 +28,9 @@ def add_dirs_to_store(fld, store):
         add_dirs_to_store(sd, store)
 
 
-def main(folder, savefolder, keep_structure=True):
+def main(
+    folder, savefolder, keep_structure=True, githuburl=None, checkurls=False
+):
     """
         Main function used to parse a directory.
 
@@ -38,6 +41,10 @@ def main(folder, savefolder, keep_structure=True):
                 files will be saved
         :param keep_structure: bool, if True the output .md are saved in
             a folder structure mirroring that of folder and its subdirs
+        :param githuburl: str, optional. URL of github repo with
+            the same code as `folder`, for creating links
+        :param checkurls: bool. If true it checks that the URLs pointing
+            to github files work. It needs internet and slows docs creation.
     """
     folder = Path(folder)
     savefolder = Path(savefolder)
@@ -108,7 +115,28 @@ def main(folder, savefolder, keep_structure=True):
         # Save to .md
         if data:
             if "isclass" not in data.keys():
-                py_to_md(data, savepath)
+                # Get github path
+                if githuburl is not None:
+                    fileurl = (
+                        githuburl
+                        + "/"
+                        + str(Path(*path[0])).replace("\\", "/")
+                    )
+
+                    if checkurls:
+                        if not check_url(fileurl):
+                            raise ValueError(
+                                f"Something went wrong while getting \
+                                        the url for {fp}."
+                                + f"Got {fileurl} but it doesnt seem to \
+                                        exist or your internet \
+                                                connection is down."
+                            )
+                else:
+                    fileurl = None
+
+                # write to .md
+                py_to_md(data, savepath, githubpath=fileurl)
             else:
                 folder_md(savepath)
 

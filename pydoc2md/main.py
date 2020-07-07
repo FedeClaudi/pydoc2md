@@ -20,9 +20,10 @@ def add_dirs_to_store(fld, store, savefolder):
                 files will be saved
     """
     # Create an entry for folder .md overview file
-    store[savefolder / (fld.name + ".md")] = OrderedDict(
-        sorted({"isclass": None}.items())
-    )
+    if not fld.name.startswith("__") and not fld.name.startswith("."):
+        store[savefolder / (fld.name + ".md")] = OrderedDict(
+            sorted({"isclass": None}.items())
+        )
 
     # Iterate over subdirs
     subdirs = get_subdirs(fld)

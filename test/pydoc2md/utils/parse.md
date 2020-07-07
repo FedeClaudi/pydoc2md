@@ -16,5 +16,5 @@ Contents
 ```  
 def parse_pyfile(filepath):
 ```
->Given a .py file, uses AST to find all classes defined in itwith their methods, docstrings etc.  
+>    Given a .py file, uses AST to find all classes defined in it    with their methods, docstrings etc.  
 :param filepath: str, path to a .py

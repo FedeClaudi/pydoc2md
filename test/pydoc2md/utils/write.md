@@ -5,16 +5,17 @@
 Contents
 ========
 
-* [line: 5 - `add_class_to_md`](#line-5---add_class_to_md)
-* [line: 42 - `add_func_to_md`](#line-42---add_func_to_md)
-* [line: 64 - `py_to_md`](#line-64---py_to_md)
-* [line: 91 - `write_summary_file`](#line-91---write_summary_file)
+* [line: 4 - `add_class_to_md`](#line-4---add_class_to_md)
+* [line: 41 - `add_func_to_md`](#line-41---add_func_to_md)
+* [line: 63 - `py_to_md`](#line-63---py_to_md)
+* [line: 90 - `folder_md`](#line-90---folder_md)
+* [line: 96 - `write_summary_file`](#line-96---write_summary_file)
 
 
 &nbsp;
 
 --------
-# line: 5 - `add_class_to_md`
+# line: 4 - `add_class_to_md`
   
 ```  
 def add_class_to_md(md, cl):
@@ -24,7 +25,7 @@ def add_class_to_md(md, cl):
 &nbsp;
 
 --------
-# line: 42 - `add_func_to_md`
+# line: 41 - `add_func_to_md`
   
 ```  
 def add_func_to_md(md, cl):
@@ -34,7 +35,7 @@ def add_func_to_md(md, cl):
 &nbsp;
 
 --------
-# line: 64 - `py_to_md`
+# line: 63 - `py_to_md`
   
 ```  
 def py_to_md(data, savepath):
@@ -46,7 +47,19 @@ def py_to_md(data, savepath):
 &nbsp;
 
 --------
-# line: 91 - `write_summary_file`
+# line: 90 - `folder_md`
+  
+```  
+def folder_md(savepath):
+```
+
+
+>  no docstring
+
+&nbsp;
+
+--------
+# line: 96 - `write_summary_file`
   
 ```  
 def write_summary_file(paths, leaves, savepath):

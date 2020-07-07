@@ -5,26 +5,26 @@
 Contents
 ========
 
-* [line: 11 - `parse_dir`](#line-11---parse_dir)
-* [line: 31 - `main`](#line-31---main)
+* [line: 11 - `add_dirs_to_store`](#line-11---add_dirs_to_store)
+* [line: 30 - `main`](#line-30---main)
 
 
 &nbsp;
 
 --------
-# line: 11 - `parse_dir`
+# line: 11 - `add_dirs_to_store`
   
 ```  
-def parse_dir(fld, store):
+def add_dirs_to_store(fld, store):
 ```
->Iteratively parse a folder and all its subfolders,meanwhile storing each file's results in `store`.  
+>Iteratively parse a folder and all its subfolders,meanwhile file's results in `store`.  
 :param fld: pathlib.Path object with a folder  
 :param store: dictionary, updated with each file's results
 
 &nbsp;
 
 --------
-# line: 31 - `main`
+# line: 30 - `main`
   
 ```  
 def main(folder, savefolder, keep_structure=True):

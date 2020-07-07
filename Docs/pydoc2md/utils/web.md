@@ -5,19 +5,19 @@
 Contents
 ========
 
-* [line: 5 - `run`](#line-5---run)
+* [line: 4 - `check_url`](#line-4---check_url)
 
 
 &nbsp;
 
 --------
-# line: 5 - `run`
+# line: 4 - `check_url`
 
 #### function definition
 
 
 ```python
-def run(projectdir, savedir, structure=True):
+def check_url(url):
 ```
 ##### docstring
   

@@ -5,31 +5,68 @@
 Contents
 ========
 
-* [line: 11 - `parse_dir`](#line-11---parse_dir)
-* [line: 31 - `main`](#line-31---main)
+* [line: 12 - `add_dirs_to_store`](#line-12---add_dirs_to_store)
+* [line: 33 - `main`](#line-33---main)
 
 
 &nbsp;
 
 --------
-# line: 11 - `parse_dir`
-  
-```  
-def parse_dir(fld, store):
+# line: 12 - `add_dirs_to_store`
+
+#### function definition
+
+
+```python
+def add_dirs_to_store(fld, store, savefolder):
 ```
->Iteratively parse a folder and all its subfolders,meanwhile storing each file's results in `store`.  
-:param fld: pathlib.Path object with a folder  
-:param store: dictionary, updated with each file's results
+##### docstring
+  
+
+
+```python
+
+"""
+    Iteratively parse a folder and all its subfolders,
+    meanwhile file's results in `store`.
+    
+    :param fld: pathlib.Path object with a folder
+    :param store: dictionary, updated with each file's results
+    :param savefolder: str, Path. Path to the folder where the .md
+            files will be saved
+"""
+```
 
 &nbsp;
 
 --------
-# line: 31 - `main`
-  
-```  
-def main(folder, savefolder, keep_structure=True):
+# line: 33 - `main`
+
+#### function definition
+
+
+```python
+def main(folder, savefolder, keep_structure=True, githuburl=None, checkurls=False):
 ```
->Main function used to parse a directory.corresponding .md files in savefolder  
-:param folder: str, Path. Path to folder with the .py scripts  
-:param savefolder: str, Path. Path to the folder where the .md        files will be saved  
-:param keep_structure: bool, if True the output .md are saved in    a folder structure mirroring that of folder and its subdirs
+##### docstring
+  
+
+
+```python
+
+"""
+    Main function used to parse a directory.
+    
+    corresponding .md files in savefolder
+    
+    :param folder: str, Path. Path to folder with the .py scripts
+    :param savefolder: str, Path. Path to the folder where the .md
+            files will be saved
+    :param keep_structure: bool, if True the output .md are saved in
+        a folder structure mirroring that of folder and its subdirs
+    :param githuburl: str, optional. URL of github repo with
+        the same code as `folder`, for creating links
+    :param checkurls: bool. If true it checks that the URLs pointing
+        to github files work. It needs internet and slows docs creation.
+"""
+```

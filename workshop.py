@@ -6,4 +6,4 @@ from pydoc2md import main
 #     githuburl='https://github.com/BrancoLab/BrainRender/tree/brainglobeintegration',
 # )
 
-main("pydoc2md", "test")
+main("pydoc2md", "Docs", "https://github.com/FedeClaudi/pydoc2md")

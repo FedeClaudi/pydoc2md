@@ -9,23 +9,25 @@ from pydoc2md.utils.write import py_to_md, write_summary_file, folder_md
 from pydoc2md.utils.web import check_url
 
 
-def add_dirs_to_store(fld, store):
+def add_dirs_to_store(fld, store, savefolder):
     """
         Iteratively parse a folder and all its subfolders,
         meanwhile file's results in `store`.
 
         :param fld: pathlib.Path object with a folder
         :param store: dictionary, updated with each file's results
+        :param savefolder: str, Path. Path to the folder where the .md
+                files will be saved
     """
     # Create an entry for folder .md overview file
-    store[fld / (fld.name + ".md")] = OrderedDict(
+    store[savefolder / (fld.name + ".md")] = OrderedDict(
         sorted({"isclass": None}.items())
     )
 
     # Iterate over subdirs
     subdirs = get_subdirs(fld)
     for sd in subdirs:
-        add_dirs_to_store(sd, store)
+        add_dirs_to_store(sd, store, savefolder)
 
 
 def main(
@@ -66,7 +68,7 @@ def main(
         path = Path(*leaf)
         store[path] = parse_pyfile(folder.parent / path)
 
-    add_dirs_to_store(folder, store)
+    add_dirs_to_store(folder, store, savefolder)
 
     # Create save folder
     savefolder.mkdir(exist_ok=True)

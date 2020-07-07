@@ -5,52 +5,129 @@
 Contents
 ========
 
-* [line: 5 - `add_class_to_md`](#line-5---add_class_to_md)
-* [line: 42 - `add_func_to_md`](#line-42---add_func_to_md)
-* [line: 64 - `py_to_md`](#line-64---py_to_md)
-* [line: 91 - `write_summary_file`](#line-91---write_summary_file)
+* [line: 4 - `add_class_to_md`](#line-4---add_class_to_md)
+* [line: 49 - `add_func_to_md`](#line-49---add_func_to_md)
+* [line: 82 - `py_to_md`](#line-82---py_to_md)
+* [line: 111 - `folder_md`](#line-111---folder_md)
+* [line: 117 - `write_summary_file`](#line-117---write_summary_file)
 
 
 &nbsp;
 
 --------
-# line: 5 - `add_class_to_md`
-  
-```  
-def add_class_to_md(md, cl):
+# line: 4 - `add_class_to_md`
+
+#### function definition
+
+
+```python
+def add_class_to_md(md, cl, githubpath=None):
 ```
->Adds a class docstring and definition to themd file, including all class methods.
+##### docstring
+  
+
+
+```python
+
+"""
+    Adds a class docstring and definition to the
+    md file, including all class methods.
+"""
+```
 
 &nbsp;
 
 --------
-# line: 42 - `add_func_to_md`
-  
-```  
-def add_func_to_md(md, cl):
+# line: 49 - `add_func_to_md`
+
+#### function definition
+
+
+```python
+def add_func_to_md(md, cl, githubpath=None):
 ```
->Adds a function docstring and definition to themd file
+##### docstring
+  
+
+
+```python
+
+"""
+    Adds a function docstring and definition to the
+    md file
+"""
+```
 
 &nbsp;
 
 --------
-# line: 64 - `py_to_md`
-  
-```  
-def py_to_md(data, savepath):
+# line: 82 - `py_to_md`
+
+#### function definition
+
+
+```python
+def py_to_md(data, savepath, githubpath=None):
 ```
->Writes to a markdown file the content of a .py file.It writes the name of all the classes and their methods withthe corresponding docstrings as well as all functions thatare not class methods.  
-:param data: dictionary of classes that belong to a .py,                from parse_pyfile  
-:param savepath: str, path to the .md file to save
+##### docstring
+  
+
+
+```python
+
+"""
+    Writes to a markdown file the content of a .py file.
+    It writes the name of all the classes and their methods with
+    the corresponding docstrings as well as all functions that
+    are not class methods.
+    
+    :param data: dictionary of classes that belong to a .py,
+                    from parse_pyfile
+    :param savepath: str, path to the .md file to save
+    :param githubpath: str, optional. URL to the same .py on github
+"""
+```
 
 &nbsp;
 
 --------
-# line: 91 - `write_summary_file`
+# line: 111 - `folder_md`
+
+#### function definition
+
+
+```python
+def folder_md(savepath):
+```
+##### docstring
   
-```  
-def write_summary_file(pathtree, savepath):
+
+
+```python
+
+"""
+ no docstring 
+"""
 ```
 
+&nbsp;
 
->  no docstring
+--------
+# line: 117 - `write_summary_file`
+
+#### function definition
+
+
+```python
+def write_summary_file(paths, leaves, savepath):
+```
+##### docstring
+  
+
+
+```python
+
+"""
+ no docstring 
+"""
+```

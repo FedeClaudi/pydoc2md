@@ -1,7 +1,7 @@
 # pydoc2md
-inspired by https://github.com/gbowerman/py2md
+Inspired by https://github.com/gbowerman/py2md
 
-
+----
 `pydoc2md` is lightweight python application that generates markdown (`.md`) files from a repository of `.py`. The idea is to easily generate bare bones documentation for a python project by providing a list of all classes and functions, each with their docstring. 
 
 ----
@@ -31,10 +31,10 @@ For instance, the `.md` files in [Docs](Docs) where generated with
 ```
 
 ## Installation
-Currently you can isntall  with:
+You can isntall  with:
 
 ```
-pip install git+https://github.com/FedeClaudi/pydoc2md.git
+pip install pydoc2md
 ```
 
 though a pip installable version will be released when the project is more mature.

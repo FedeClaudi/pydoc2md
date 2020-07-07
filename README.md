@@ -15,7 +15,7 @@ This package is currently under development, bugs and breaking changes are almos
 Features that will be added soon:
 
 - [x] output folder structure: option to save the output `md` in a folder structure mirroring that of the input package
-- [ ] overall table of content: table of content with an overview of all `.md` files and how they're organised
+- [x] overall table of content: table of content with an overview of all `.md` files and how they're organised
 - [ ] > suggest new features you'd like to see added?
 
 

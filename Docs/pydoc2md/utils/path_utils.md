@@ -7,11 +7,11 @@ Contents
 
 * [**Folder**](#folder)
 	* [line: 5 - `__init__`](#line-5---__init__)
-* [line: 8 - `get_folder_structure`](#line-8---get_folder_structure)
-* [line: 17 - `add_subdirs`](#line-17---add_subdirs)
-* [line: 40 - `get_files`](#line-40---get_files)
-* [line: 52 - `get_pyfiles`](#line-52---get_pyfiles)
-* [line: 60 - `get_subdirs`](#line-60---get_subdirs)
+* [line: 9 - `get_folder_structure`](#line-9---get_folder_structure)
+* [line: 19 - `add_subdirs`](#line-19---add_subdirs)
+* [line: 51 - `get_files`](#line-51---get_files)
+* [line: 68 - `get_pyfiles`](#line-68---get_pyfiles)
+* [line: 76 - `get_subdirs`](#line-76---get_subdirs)
 
 
 &nbsp;
@@ -37,18 +37,18 @@ def __init__(self, path):
 &nbsp;
 
 --------
-# line: 8 - `get_folder_structure`
+# line: 9 - `get_folder_structure`
   
 ```  
 def get_folder_structure(folder):
 ```
->Iteratively go through a folderstructure finding subfolders and files. Returns a treelib.Tree object with the fileshierarchy  
+>Iteratively go through a folderstructure finding subfolders and files.Returns a treelib.Tree object with the fileshierarchy  
 :param folder: pathlib.Path object
 
 &nbsp;
 
 --------
-# line: 17 - `add_subdirs`
+# line: 19 - `add_subdirs`
   
 ```  
 def add_subdirs(fld, tree):
@@ -60,7 +60,7 @@ def add_subdirs(fld, tree):
 &nbsp;
 
 --------
-# line: 40 - `get_files`
+# line: 51 - `get_files`
   
 ```  
 def get_files(folder, restrict_to_folder=False):
@@ -72,7 +72,7 @@ def get_files(folder, restrict_to_folder=False):
 &nbsp;
 
 --------
-# line: 52 - `get_pyfiles`
+# line: 68 - `get_pyfiles`
   
 ```  
 def get_pyfiles(folder):
@@ -83,7 +83,7 @@ def get_pyfiles(folder):
 &nbsp;
 
 --------
-# line: 60 - `get_subdirs`
+# line: 76 - `get_subdirs`
   
 ```  
 def get_subdirs(folder):

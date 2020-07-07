@@ -1,4 +1,5 @@
 from mdutils.mdutils import MdUtils
+from pathlib import Path
 
 
 def add_class_to_md(md, cl):
@@ -84,4 +85,23 @@ def py_to_md(data, savepath):
             add_func_to_md(md, cl)
 
     md.new_table_of_contents(table_title="Contents", depth=2)
+    md.create_md_file()
+
+
+def write_summary_file(pathtree, savepath):
+    print(f"writing - {savepath}")
+    md = MdUtils(file_name=str(savepath))
+
+    # Save path trees to a temp file
+    temp = str(savepath.parent / "temp.txt")
+    pathtree.save2file(temp)
+
+    with open(temp, "r") as tmp:
+        tree = tmp.read()
+
+    Path(temp).unlink()
+
+    # Add the path tree as tree view
+    md.new_paragraph("```\n" + tree + "\n```")
+
     md.create_md_file()

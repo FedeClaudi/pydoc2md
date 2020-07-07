@@ -5,7 +5,7 @@ from pydoc2md.utils.path_utils import (
     get_folder_structure,
 )
 from pydoc2md.utils.parse import parse_pyfile
-from pydoc2md.utils.write import py_to_md
+from pydoc2md.utils.write import py_to_md, write_summary_file
 
 
 def parse_dir(fld, store):
@@ -58,11 +58,17 @@ def main(folder, savefolder, keep_structure=True):
     # Create save folder
     savefolder.mkdir(exist_ok=True)
 
-    # save markdowns
+    # Create summary file
+    write_summary_file(pathtree, savefolder / "summary.md")
+
+    # save markdowns for single files
     for fp, data in store.items():
+        # Get savepath
         if not keep_structure:
+            # Save all .md in the same folder
             savepath = savefolder / fp.name
         else:
+            # Mirror folder structure
             parent, fl = fp.parent.name, fp.name
             path = [leaf for leaf in leaves if leaf[-1] == parent + fl]
 
@@ -75,8 +81,8 @@ def main(folder, savefolder, keep_structure=True):
                 savepath.mkdir(exist_ok=True)
 
                 savepath = savepath / fl
-
         savepath = str(savepath).replace(".py", ".md")
 
+        # Save to .md
         if data:
             py_to_md(data, savepath)

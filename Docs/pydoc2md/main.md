@@ -5,14 +5,14 @@
 Contents
 ========
 
-* [line: 5 - `parse_dir`](#line-5---parse_dir)
-* [line: 25 - `main`](#line-25---main)
+* [line: 7 - `parse_dir`](#line-7---parse_dir)
+* [line: 27 - `main`](#line-27---main)
 
 
 &nbsp;
 
 --------
-# line: 5 - `parse_dir`
+# line: 7 - `parse_dir`
   
 ```  
 def parse_dir(fld, store):
@@ -24,11 +24,12 @@ def parse_dir(fld, store):
 &nbsp;
 
 --------
-# line: 25 - `main`
+# line: 27 - `main`
   
 ```  
-def main(folder, savefolder):
+def main(folder, savefolder, keep_structure=True):
 ```
 >Main function used to parse a directory.corresponding .md files in savefolder  
 :param folder: str, Path. Path to folder with the .py scripts  
-:param savefolder: str, Path. Path to the folder where the .md        files will be saved
+:param savefolder: str, Path. Path to the folder where the .md        files will be saved  
+:param keep_structure: bool, if True the output .md are saved in     a folder structure mirroring that of folder and its subdirs

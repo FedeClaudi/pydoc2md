@@ -1,5 +1,9 @@
 from pathlib import Path
-from pydoc2md.utils.path_utils import get_subdirs, get_pyfiles
+from pydoc2md.utils.path_utils import (
+    get_subdirs,
+    get_pyfiles,
+    get_folder_structure,
+)
 from pydoc2md.utils.parse import parse_pyfile
 from pydoc2md.utils.write import py_to_md
 
@@ -24,7 +28,7 @@ def parse_dir(fld, store):
         parse_dir(sd, store)
 
 
-def main(folder, savefolder):
+def main(folder, savefolder, keep_structure=True):
     """
         Main function used to parse a directory.
 
@@ -33,6 +37,8 @@ def main(folder, savefolder):
         :param folder: str, Path. Path to folder with the .py scripts
         :param savefolder: str, Path. Path to the folder where the .md
                 files will be saved
+        :param keep_structure: bool, if True the output .md are saved in
+            a folder structure mirroring that of folder and its subdirs
     """
     folder = Path(folder)
     savefolder = Path(savefolder)
@@ -40,6 +46,10 @@ def main(folder, savefolder):
     # Check that folder exists
     if not folder.exists():
         raise ValueError(f"Folder {str(folder)} does not exist.")
+
+    # Get folder structure
+    pathtree = get_folder_structure(folder)
+    leaves = pathtree.paths_to_leaves()
 
     # Parse files
     store = {}
@@ -50,7 +60,22 @@ def main(folder, savefolder):
 
     # save markdowns
     for fp, data in store.items():
-        savepath = savefolder / fp.name
+        if not keep_structure:
+            savepath = savefolder / fp.name
+        else:
+            parent, fl = fp.parent.name, fp.name
+            path = [leaf for leaf in leaves if leaf[-1] == parent + fl]
+
+            if not path or len(path) > 1:
+                raise ValueError(
+                    "Something went wrong while re-creating folder structure"
+                )
+            else:
+                savepath = savefolder / Path(*path[0][:-1])
+                savepath.mkdir(exist_ok=True)
+
+                savepath = savepath / fl
+
         savepath = str(savepath).replace(".py", ".md")
 
         if data:

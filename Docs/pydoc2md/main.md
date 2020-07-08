@@ -6,14 +6,15 @@ Contents
 ========
 
 * [line: 12 - `add_dirs_to_store`](#line-12---add_dirs_to_store)
-* [line: 34 - `main`](#line-34---main)
+* [line: 36 - `main`](#line-36---main)
 
 
 &nbsp;
 
 --------
 # line: 12 - `add_dirs_to_store`
-
+  
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/main.py#L12) online
 #### function definition
 
 
@@ -40,8 +41,9 @@ def add_dirs_to_store(fld, store, savefolder):
 &nbsp;
 
 --------
-# line: 34 - `main`
-
+# line: 36 - `main`
+  
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/main.py#L36) online
 #### function definition
 
 

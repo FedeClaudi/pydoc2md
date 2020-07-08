@@ -12,7 +12,8 @@ Contents
 
 --------
 # line: 6 - `parse_pyfile`
-
+  
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/parse.py#L6) online
 #### function definition
 
 

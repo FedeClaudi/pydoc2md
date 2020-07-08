@@ -98,6 +98,11 @@ def main(
 
                 savepath = fp
                 path = None
+
+                if not Path(savepath).name.split(".")[0] == folder.name:
+                    name = Path(savepath).name
+                    savepath = Path(savepath).parent / folder.name
+                    savepath = str(savepath / name.split(".")[0] / name)
             elif len(path) > 1:
                 raise ValueError(
                     "Something went wrong while re-creating folder structure"
@@ -122,7 +127,7 @@ def main(
                 if githuburl is not None:
                     fileurl = (
                         githuburl
-                        + "/"
+                        + "/blob/master/"
                         + str(Path(*path[0])).replace("\\", "/")
                     )
 

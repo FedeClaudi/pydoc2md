@@ -1,64 +1,18 @@
 from mdutils.mdutils import MdUtils
 
 
-def add_class_to_md(md, cl, githubpath=None):
-    """
-        Adds a class docstring and definition to the
-        md file, including all class methods.
-    """
+def add_header(md, nlines, level, title):
     # header
     md.new_paragraph("&nbsp;")
-    md.new_paragraph("--------")
-    md.new_paragraph("--------")
-    md.new_header(level=1, title=f'**{cl["name"]}**')
-
-    if cl["doc"] is not None:
-        md.insert_code(cl["doc"])
-
-    else:
-        md.new_paragraph("")
-
-    for func, doc, lineno, df in zip(
-        cl["funcs"], cl["funcs_docs"], cl["funcs_lines"], cl["def"]
-    ):
+    for n in range(nlines):
         md.new_paragraph("--------")
-        md.new_header(level=2, title=f"line: {lineno} - `{func}`")
-        if githubpath is not None:
-            url = githubpath + f"#L{lineno}"
-            md.new_line(
-                "Check the "
-                + md.new_inline_link(
-                    link=url, text="source code", bold_italics_code="cbi"
-                )
-                + " online"
-            )
 
-        md.new_header(level=4, title="function definition")
-        md.insert_code(df, language="python")
-
-        md.new_header(level=5, title="docstring")
-        md.new_line()
-        if doc is None:
-            doc = """ no docstring """
-        else:
-            doc = "    " + doc.replace("\n", "\n    ")
-
-        md.insert_code('\n"""\n' + doc + '\n"""', language="python")
+    md.new_header(level=level, title=title)
 
 
-def add_func_to_md(md, cl, githubpath=None):
-    """
-        Adds a function docstring and definition to the
-        md file
-    """
-    md.new_paragraph("&nbsp;")
-    md.new_paragraph("--------")
-    md.new_header(level=1, title=f"line: {cl['line']} - `{cl['name']}`")
-
-    md.new_header(level=4, title="function definition")
-
+def add_github_link(md, githubpath, lineno):
     if githubpath is not None:
-        url = githubpath + f'#L{cl["line"]}'
+        url = githubpath + f"#L{lineno}"
         md.new_line(
             "Check the "
             + md.new_inline_link(
@@ -67,16 +21,68 @@ def add_func_to_md(md, cl, githubpath=None):
             + " online"
         )
 
-    md.insert_code(cl["def"], language="python")
 
+def add_docstring(md, doc):
     md.new_header(level=5, title="docstring")
     md.new_line()
-    if cl["doc"] is None:
+    if doc is None:
         doc = """ no docstring """
     else:
-        doc = "    " + cl["doc"].replace("\n", "\n    ")
+        doc = "    " + doc.replace("\n", "\n    ")
 
     md.insert_code('\n"""\n' + doc + '\n"""', language="python")
+
+
+def add_class_to_md(md, cl, githubpath=None):
+    """
+        Adds a class docstring and definition to the
+        md file, including all class methods.
+    """
+    # header
+    add_header(md, 2, 1, f'**{cl["name"]}**')
+
+    # class docstring
+    if cl["doc"] is not None:
+        md.insert_code(cl["doc"])
+
+    else:
+        md.new_paragraph("")
+
+    # for each class method
+    for func, doc, lineno, df in zip(
+        cl["funcs"], cl["funcs_docs"], cl["funcs_lines"], cl["def"]
+    ):
+        # header
+        add_header(md, 1, 1, f"line: {lineno} - `{func}`")
+
+        # github link
+        add_github_link(md, githubpath, lineno)
+
+        # function def
+        md.new_header(level=4, title="function definition")
+        md.insert_code(df, language="python")
+
+        # docstring
+        add_docstring(md, doc)
+
+
+def add_func_to_md(md, cl, githubpath=None):
+    """
+        Adds a function docstring and definition to the
+        md file
+    """
+    # header
+    add_header(md, 1, 1, f"line: {cl['line']} - `{cl['name']}`")
+
+    # github line link
+    add_github_link(md, githubpath, cl["line"])
+
+    # function definition
+    md.new_header(level=4, title="function definition")
+    md.insert_code(cl["def"], language="python")
+
+    # docstring
+    add_docstring(md, cl["doc"])
 
 
 def py_to_md(data, savepath, githubpath=None):
@@ -91,7 +97,6 @@ def py_to_md(data, savepath, githubpath=None):
         :param savepath: str, path to the .md file to save
         :param githubpath: str, optional. URL to the same .py on github
     """
-
     print(f"writing - {savepath}")
     md = MdUtils(file_name=savepath)
 
@@ -118,7 +123,7 @@ def write_summary_file(paths, leaves, savepath):
     print(f"writing - {savepath}")
     md = MdUtils(file_name=str(savepath))
 
-    for leaf in leaves:
+    for leaf in sorted(leaves):
         try:
             name = [
                 name

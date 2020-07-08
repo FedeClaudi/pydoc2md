@@ -6,12 +6,12 @@ Contents
 ========
 
 * [**Folder**](#folder)
-	* [line: 5 - `__init__`](#line-5---__init__)
+* [line: 5 - `__init__`](#line-5---__init__)
 * [line: 9 - `get_folder_structure`](#line-9---get_folder_structure)
 * [line: 19 - `add_subdirs`](#line-19---add_subdirs)
-* [line: 51 - `get_files`](#line-51---get_files)
-* [line: 68 - `get_pyfiles`](#line-68---get_pyfiles)
-* [line: 76 - `get_subdirs`](#line-76---get_subdirs)
+* [line: 55 - `get_files`](#line-55---get_files)
+* [line: 72 - `get_pyfiles`](#line-72---get_pyfiles)
+* [line: 80 - `get_subdirs`](#line-80---get_subdirs)
 
 
 &nbsp;
@@ -24,9 +24,12 @@ Contents
 
 
 
---------
-## line: 5 - `__init__`
+&nbsp;
 
+--------
+# line: 5 - `__init__`
+  
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/path_utils.py#L5) online
 #### function definition
 
 
@@ -48,7 +51,8 @@ def __init__(self, path):
 
 --------
 # line: 9 - `get_folder_structure`
-
+  
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/path_utils.py#L9) online
 #### function definition
 
 
@@ -75,7 +79,8 @@ def get_folder_structure(folder):
 
 --------
 # line: 19 - `add_subdirs`
-
+  
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/path_utils.py#L19) online
 #### function definition
 
 
@@ -96,8 +101,9 @@ def add_subdirs(fld, tree):
 &nbsp;
 
 --------
-# line: 51 - `get_files`
-
+# line: 55 - `get_files`
+  
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/path_utils.py#L55) online
 #### function definition
 
 
@@ -121,8 +127,9 @@ def get_files(folder, restrict_to_folder=False):
 &nbsp;
 
 --------
-# line: 68 - `get_pyfiles`
-
+# line: 72 - `get_pyfiles`
+  
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/path_utils.py#L72) online
 #### function definition
 
 
@@ -144,8 +151,9 @@ def get_pyfiles(folder):
 &nbsp;
 
 --------
-# line: 76 - `get_subdirs`
-
+# line: 80 - `get_subdirs`
+  
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/path_utils.py#L80) online
 #### function definition
 
 

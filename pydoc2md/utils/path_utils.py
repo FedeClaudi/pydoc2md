@@ -1,4 +1,5 @@
 from treelib import Tree
+from treelib import exceptions
 
 
 class Folder:
@@ -31,12 +32,16 @@ def get_folder_structure(folder):
         for sub in get_subdirs(fld):
             if sub.name.startswith("__"):
                 continue
-            tree.create_node(
-                tag=sub.name,
-                identifier=sub.name,
-                parent=sub.parent.name,
-                data=Folder(sub),
-            )
+
+            try:
+                tree.create_node(
+                    tag=sub.name,
+                    identifier=sub.name,
+                    parent=sub.parent.name,
+                    data=Folder(sub),
+                )
+            except exceptions.DuplicatedNodeIdError:
+                pass
             add_subdirs(sub, tree)
 
     tree = Tree()

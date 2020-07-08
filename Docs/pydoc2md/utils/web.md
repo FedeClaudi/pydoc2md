@@ -12,7 +12,8 @@ Contents
 
 --------
 # line: 4 - `check_url`
-
+  
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/web.py#L4) online
 #### function definition
 
 

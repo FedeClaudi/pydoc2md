@@ -1,6 +1,5 @@
 import ast
 from astunparse import unparse
-import collections
 
 
 def parse_pyfile(filepath):
@@ -62,4 +61,4 @@ def parse_pyfile(filepath):
             l for l in unparse(f).split("\n") if "def " in l
         ][0]
 
-    return collections.OrderedDict(sorted(out.items()))
+    return out

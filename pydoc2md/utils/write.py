@@ -1,4 +1,5 @@
 from mdutils.mdutils import MdUtils
+from pathlib import Path
 
 
 def add_header(md, nlines, level, title):
@@ -119,27 +120,13 @@ def folder_md(savepath):
     md.create_md_file()
 
 
-def write_summary_file(paths, leaves, savepath):
+def write_summary_file(summary, savepath):
     print(f"writing - {savepath}")
-    md = MdUtils(file_name=str(savepath))
+    md = MdUtils(file_name=savepath)
 
-    for leaf in sorted(leaves):
-        try:
-            name = [
-                name
-                for name, (path, filepath) in paths.items()
-                if path == leaf
-            ][0]
-        except IndexError:
-            path, filepath = paths[leaf[-2]]
-        else:
-            path, filepath = paths[name]
-
-        if path is None:
-            tabs = len(leaf) - 3
-        else:
-            tabs = len(path) - 2
-
-        md.new_line("    " * tabs + "* " + f"[{filepath.name}]({filepath})")
+    for nid, (depth, path) in summary.items():
+        name = path.name
+        path = Path(*path.parts[1:])
+        md.new_line("    " * depth + "* " + f"[{name}]({path})")
 
     md.create_md_file()

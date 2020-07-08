@@ -1,39 +1,30 @@
 from pathlib import Path
-from collections import OrderedDict
-from pydoc2md.utils.path_utils import (
-    get_subdirs,
-    get_folder_structure,
-)
+from pydoc2md.utils.path_utils import get_folder_structure
 from pydoc2md.utils.parse import parse_pyfile
 from pydoc2md.utils.write import py_to_md, write_summary_file, folder_md
 from pydoc2md.utils.web import check_url
 
 
-def add_dirs_to_store(fld, store, savefolder):
-    """
-        Iteratively parse a folder and all its subfolders,
-        meanwhile file's results in `store`.
+def get_github_url(path, githuburl, checkurls):
+    # Get github path
+    if githuburl is not None:
+        fileurl = githuburl + "/blob/master/" + path.replace("\\", "/")
 
-        :param fld: pathlib.Path object with a folder
-        :param store: dictionary, updated with each file's results
-        :param savefolder: str, Path. Path to the folder where the .md
-                files will be saved
-    """
-    # Create an entry for folder .md overview file
-    if not fld.name.startswith("__") and not fld.name.startswith("."):
-        store[savefolder / (fld.name + ".md")] = OrderedDict(
-            sorted({"isclass": None}.items())
-        )
-
-    # Iterate over subdirs
-    subdirs = get_subdirs(fld)
-    for sd in subdirs:
-        add_dirs_to_store(sd, store, savefolder)
+        if checkurls:
+            if not check_url(fileurl):
+                raise ValueError(
+                    f"Something went wrong while getting \
+                            the url for {path}."
+                    + f"Got {fileurl} but it doesnt seem to \
+                            exist or your internet \
+                                    connection is down."
+                )
+        return fileurl
+    else:
+        return None
 
 
-def main(
-    folder, savefolder, keep_structure=True, githuburl=None, checkurls=False
-):
+def main(folder, savefolder, githuburl=None, checkurls=False):
     """
         Main function used to parse a directory.
 
@@ -42,8 +33,6 @@ def main(
         :param folder: str, Path. Path to folder with the .py scripts
         :param savefolder: str, Path. Path to the folder where the .md
                 files will be saved
-        :param keep_structure: bool, if True the output .md are saved in
-            a folder structure mirroring that of folder and its subdirs
         :param githuburl: str, optional. URL of github repo with
             the same code as `folder`, for creating links
         :param checkurls: bool. If true it checks that the URLs pointing
@@ -51,6 +40,7 @@ def main(
     """
     folder = Path(folder)
     savefolder = Path(savefolder)
+    savefolder.mkdir(exist_ok=True)
 
     # Check that folder exists
     if not folder.exists():
@@ -58,95 +48,43 @@ def main(
 
     # Get folder structure
     pathtree = get_folder_structure(folder)
-    leaves = pathtree.paths_to_leaves()
 
-    # Parse files
-    store = {}
-    for leaf in leaves:
-        end = leaf.pop(-1)
-        leaf.append(end.split("+")[-1])
+    # Iterate over items in pathtree
+    summary = {}
+    for nid, node in pathtree.nodes.items():
+        depth = pathtree.depth(nid)
 
-        path = Path(*leaf)
-        store[path] = parse_pyfile(folder.parent / path)
+        if nid.endswith(".py"):
+            # parse python file and add the .md
+            fld, name = nid.split("+")
+            parsed = parse_pyfile(node.data.path)
 
-    add_dirs_to_store(folder, store, savefolder)
-
-    # Create save folder
-    savefolder.mkdir(exist_ok=True)
-
-    # save markdowns for single files
-    paths = {}
-    for fp, data in store.items():
-        # Get savepath
-        if not keep_structure:
-            # Save all .md in the same folder
-            savepath = savefolder / fp.name
-        else:
-            # Mirror folder structure
-            parent, fl = fp.parent.name, fp.name
-            path = [
-                leaf
-                for leaf in leaves
-                if leaf[-1] == fl and leaf[-2] == parent
-            ]
-
-            if not path or path[0][-1].endswith(".md"):
-                if fp.parent.name.startswith(
-                    "__"
-                ) or fp.parent.name.startswith("."):
-                    continue
-
-                savepath = fp
-                path = None
-
-                if not Path(savepath).name.split(".")[0] == folder.name:
-                    name = Path(savepath).name
-                    savepath = Path(savepath).parent / folder.name
-                    savepath = str(savepath / name.split(".")[0] / name)
-            elif len(path) > 1:
-                raise ValueError(
-                    "Something went wrong while re-creating folder structure"
-                )
-            else:
-                savepath = savefolder / Path(*path[0][:-1])
-                savepath.mkdir(exist_ok=True)
-
-                savepath = savepath / fl
-
-        savepath = str(savepath).replace(".py", ".md")
-
-        if path is not None:
-            paths["".join(*path)] = (path[0], Path(savepath))
-        else:
-            paths[fp.parent.name] = (None, Path(savepath))
-
-        # Save to .md
-        if data:
-            if "isclass" not in data.keys():
-                # Get github path
-                if githuburl is not None:
-                    fileurl = (
-                        githuburl
-                        + "/blob/master/"
-                        + str(Path(*path[0])).replace("\\", "/")
-                    )
-
-                    if checkurls:
-                        if not check_url(fileurl):
-                            raise ValueError(
-                                f"Something went wrong while getting \
-                                        the url for {fp}."
-                                + f"Got {fileurl} but it doesnt seem to \
-                                        exist or your internet \
-                                                connection is down."
-                            )
+            if parsed:
+                if depth < 2:
+                    sfld = savefolder / fld
                 else:
-                    fileurl = None
+                    sfld = savefolder / folder.name / fld
+                sfld.mkdir(exist_ok=True)
 
-                # write to .md
-                py_to_md(data, savepath, githubpath=fileurl)
+                savepath = str(sfld / name.replace(".py", ".md"))
+
+                fileurl = get_github_url(
+                    str(Path(*[folder.name, fld, name])), githuburl, checkurls
+                )
+                py_to_md(parsed, savepath, githubpath=fileurl)
+
+                summary[nid] = (depth, Path(savepath))
+
+        else:
+            # Create a folder .md file
+            if nid != folder.name:
+                savepath = str(savefolder / folder.name / nid / (nid + ".md"))
+                Path(savepath).parent.mkdir(exist_ok=True)
             else:
-                folder_md(savepath)
+                savepath = str(savefolder / (nid + ".md"))
+
+            folder_md(savepath)
+            summary[nid] = (depth, Path(savepath))
 
     # Create summary file
-    write_summary_file(paths, leaves, savefolder / "summary.md")
+    write_summary_file(summary, str(savefolder / "summary.md"))

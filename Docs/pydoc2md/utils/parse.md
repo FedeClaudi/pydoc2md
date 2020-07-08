@@ -5,15 +5,15 @@
 Contents
 ========
 
-* [line: 6 - `parse_pyfile`](#line-6---parse_pyfile)
+* [line: 5 - `parse_pyfile`](#line-5---parse_pyfile)
 
 
 &nbsp;
 
 --------
-# line: 6 - `parse_pyfile`
+# line: 5 - `parse_pyfile`
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/parse.py#L6) online
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/parse.py#L5) online
 #### function definition
 
 

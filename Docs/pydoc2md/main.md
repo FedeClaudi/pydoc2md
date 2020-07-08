@@ -5,21 +5,21 @@
 Contents
 ========
 
-* [line: 12 - `add_dirs_to_store`](#line-12---add_dirs_to_store)
-* [line: 36 - `main`](#line-36---main)
+* [line: 11 - `get_github_url`](#line-11---get_github_url)
+* [line: 34 - `main`](#line-34---main)
 
 
 &nbsp;
 
 --------
-# line: 12 - `add_dirs_to_store`
+# line: 11 - `get_github_url`
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/main.py#L12) online
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/pydoc2md/main.py#L11) online
 #### function definition
 
 
 ```python
-def add_dirs_to_store(fld, store, savefolder):
+def get_github_url(path, githuburl, checkurls):
 ```
 ##### docstring
   
@@ -28,27 +28,21 @@ def add_dirs_to_store(fld, store, savefolder):
 ```python
 
 """
-    Iteratively parse a folder and all its subfolders,
-    meanwhile file's results in `store`.
-    
-    :param fld: pathlib.Path object with a folder
-    :param store: dictionary, updated with each file's results
-    :param savefolder: str, Path. Path to the folder where the .md
-            files will be saved
+ no docstring 
 """
 ```
 
 &nbsp;
 
 --------
-# line: 36 - `main`
+# line: 34 - `main`
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/main.py#L36) online
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/pydoc2md/main.py#L34) online
 #### function definition
 
 
 ```python
-def main(folder, savefolder, keep_structure=True, githuburl=None, checkurls=False):
+def main(folder, savefolder, githuburl=None, checkurls=False):
 ```
 ##### docstring
   
@@ -64,8 +58,6 @@ def main(folder, savefolder, keep_structure=True, githuburl=None, checkurls=Fals
     :param folder: str, Path. Path to folder with the .py scripts
     :param savefolder: str, Path. Path to the folder where the .md
             files will be saved
-    :param keep_structure: bool, if True the output .md are saved in
-        a folder structure mirroring that of folder and its subdirs
     :param githuburl: str, optional. URL of github repo with
         the same code as `folder`, for creating links
     :param checkurls: bool. If true it checks that the URLs pointing

@@ -5,22 +5,22 @@
 Contents
 ========
 
-* [line: 4 - `add_header`](#line-4---add_header)
-* [line: 13 - `add_github_link`](#line-13---add_github_link)
-* [line: 25 - `add_docstring`](#line-25---add_docstring)
-* [line: 36 - `add_class_to_md`](#line-36---add_class_to_md)
-* [line: 69 - `add_func_to_md`](#line-69---add_func_to_md)
-* [line: 88 - `py_to_md`](#line-88---py_to_md)
-* [line: 116 - `folder_md`](#line-116---folder_md)
-* [line: 122 - `write_summary_file`](#line-122---write_summary_file)
+* [line: 5 - `add_header`](#line-5---add_header)
+* [line: 14 - `add_github_link`](#line-14---add_github_link)
+* [line: 26 - `add_docstring`](#line-26---add_docstring)
+* [line: 37 - `add_class_to_md`](#line-37---add_class_to_md)
+* [line: 70 - `add_func_to_md`](#line-70---add_func_to_md)
+* [line: 89 - `py_to_md`](#line-89---py_to_md)
+* [line: 117 - `folder_md`](#line-117---folder_md)
+* [line: 123 - `write_summary_file`](#line-123---write_summary_file)
 
 
 &nbsp;
 
 --------
-# line: 4 - `add_header`
+# line: 5 - `add_header`
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L4) online
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L5) online
 #### function definition
 
 
@@ -41,9 +41,9 @@ def add_header(md, nlines, level, title):
 &nbsp;
 
 --------
-# line: 13 - `add_github_link`
+# line: 14 - `add_github_link`
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L13) online
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L14) online
 #### function definition
 
 
@@ -64,9 +64,9 @@ def add_github_link(md, githubpath, lineno):
 &nbsp;
 
 --------
-# line: 25 - `add_docstring`
+# line: 26 - `add_docstring`
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L25) online
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L26) online
 #### function definition
 
 
@@ -87,9 +87,9 @@ def add_docstring(md, doc):
 &nbsp;
 
 --------
-# line: 36 - `add_class_to_md`
+# line: 37 - `add_class_to_md`
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L36) online
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L37) online
 #### function definition
 
 
@@ -111,9 +111,9 @@ def add_class_to_md(md, cl, githubpath=None):
 &nbsp;
 
 --------
-# line: 69 - `add_func_to_md`
+# line: 70 - `add_func_to_md`
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L69) online
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L70) online
 #### function definition
 
 
@@ -135,9 +135,9 @@ def add_func_to_md(md, cl, githubpath=None):
 &nbsp;
 
 --------
-# line: 88 - `py_to_md`
+# line: 89 - `py_to_md`
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L88) online
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L89) online
 #### function definition
 
 
@@ -166,9 +166,9 @@ def py_to_md(data, savepath, githubpath=None):
 &nbsp;
 
 --------
-# line: 116 - `folder_md`
+# line: 117 - `folder_md`
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L116) online
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L117) online
 #### function definition
 
 
@@ -189,9 +189,9 @@ def folder_md(savepath):
 &nbsp;
 
 --------
-# line: 122 - `write_summary_file`
+# line: 123 - `write_summary_file`
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L122) online
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L123) online
 #### function definition
 
 

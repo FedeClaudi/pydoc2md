@@ -1,5 +1,6 @@
 from mdutils.mdutils import MdUtils
 from pathlib import Path
+from pydoc2md.utils.text import wrap_string, strip_wrap_string
 
 
 def add_header(md, nlines, level, title):
@@ -19,19 +20,37 @@ def add_github_link(md, githubpath, lineno):
             + md.new_inline_link(
                 link=url, text="source code", bold_italics_code="cbi"
             )
-            + " online"
+            + " online",
+            align="right",
         )
 
 
-def add_docstring(md, doc):
-    md.new_header(level=5, title="docstring")
-    md.new_line()
-    if doc is None:
-        doc = """ no docstring """
-    else:
-        doc = "    " + doc.replace("\n", "\n    ")
+def add_def_and_docstring(md, definition, doc):
+    md.insert_code(wrap_string(definition), language="python")
+    md.new_paragraph("&nbsp;")
+    md.new_line("docstring:")
 
-    md.insert_code('\n"""\n' + doc + '\n"""', language="python")
+    if doc is not None:
+        # Clean up docstring a bit
+        doc = doc.replace("    ", "")
+
+        # capitalize
+        # doc = ". ".join(i.capitalize() for i in doc.split("."))
+
+        # remove empty lines and wrap
+        doc = strip_wrap_string(doc)
+
+        # doc = '<pre style="background-color:rgba(0, 0, 0, .2); \
+        #             border-radius:12px; \
+        #             padding:12px 24px; \
+        #             box-shadow: 1px 1px 1px rgba(0, 0, 0, .1)">' \
+        #             + doc + '</pre>'
+        # md.write(doc)
+
+        md.insert_code(doc, language="text")
+
+    else:
+        md.new_paragraph("no docstring")
 
 
 def add_class_to_md(md, cl, githubpath=None):
@@ -40,12 +59,11 @@ def add_class_to_md(md, cl, githubpath=None):
         md file, including all class methods.
     """
     # header
-    add_header(md, 2, 1, f'**{cl["name"]}**')
+    add_header(md, 1, 1, f'**{cl["name"]}**')
 
     # class docstring
     if cl["doc"] is not None:
         md.insert_code(cl["doc"])
-
     else:
         md.new_paragraph("")
 
@@ -54,17 +72,13 @@ def add_class_to_md(md, cl, githubpath=None):
         cl["funcs"], cl["funcs_docs"], cl["funcs_lines"], cl["def"]
     ):
         # header
-        add_header(md, 1, 1, f"line: {lineno} - `{func}`")
+        add_header(md, 0, 2, f"**`{func}`** [#{lineno}]")
 
         # github link
         add_github_link(md, githubpath, lineno)
 
-        # function def
-        md.new_header(level=4, title="function definition")
-        md.insert_code(df, language="python")
-
-        # docstring
-        add_docstring(md, doc)
+        # function def and docstring
+        add_def_and_docstring(md, df, doc)
 
 
 def add_func_to_md(md, cl, githubpath=None):
@@ -73,17 +87,13 @@ def add_func_to_md(md, cl, githubpath=None):
         md file
     """
     # header
-    add_header(md, 1, 1, f"line: {cl['line']} - `{cl['name']}`")
+    add_header(md, 1, 1, f"**`{cl['name']}`** [#{cl['line']}]")
 
     # github line link
     add_github_link(md, githubpath, cl["line"])
 
-    # function definition
-    md.new_header(level=4, title="function definition")
-    md.insert_code(cl["def"], language="python")
-
-    # docstring
-    add_docstring(md, cl["doc"])
+    # function def and docstring
+    add_def_and_docstring(md, cl["def"], cl["doc"])
 
 
 def py_to_md(data, savepath, githubpath=None):
@@ -103,7 +113,6 @@ def py_to_md(data, savepath, githubpath=None):
 
     # Iterate classes
     for cl in data.values():
-
         # class/function specific
         if cl["isclass"]:
             add_class_to_md(md, cl, githubpath=githubpath)

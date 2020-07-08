@@ -11,8 +11,8 @@ Contents
 * [line: 37 - `add_class_to_md`](#line-37---add_class_to_md)
 * [line: 70 - `add_func_to_md`](#line-70---add_func_to_md)
 * [line: 89 - `py_to_md`](#line-89---py_to_md)
-* [line: 117 - `folder_md`](#line-117---folder_md)
-* [line: 123 - `write_summary_file`](#line-123---write_summary_file)
+* [line: 116 - `folder_md`](#line-116---folder_md)
+* [line: 122 - `write_summary_file`](#line-122---write_summary_file)
 
 
 &nbsp;
@@ -166,9 +166,9 @@ def py_to_md(data, savepath, githubpath=None):
 &nbsp;
 
 --------
-# line: 117 - `folder_md`
+# line: 116 - `folder_md`
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L117) online
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L116) online
 #### function definition
 
 
@@ -189,9 +189,9 @@ def folder_md(savepath):
 &nbsp;
 
 --------
-# line: 123 - `write_summary_file`
+# line: 122 - `write_summary_file`
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L123) online
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L122) online
 #### function definition
 
 

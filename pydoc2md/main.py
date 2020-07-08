@@ -62,15 +62,21 @@ def main(folder, savefolder, githuburl=None, checkurls=False):
             if parsed:
                 if depth < 2:
                     sfld = savefolder / fld
+                    fileurl = get_github_url(
+                        str(Path(*[fld, name])), githuburl, checkurls
+                    )
                 else:
                     sfld = savefolder / folder.name / fld
+                    fileurl = get_github_url(
+                        str(Path(*[folder.name, fld, name])),
+                        githuburl,
+                        checkurls,
+                    )
+
                 sfld.mkdir(exist_ok=True)
 
                 savepath = str(sfld / name.replace(".py", ".md"))
 
-                fileurl = get_github_url(
-                    str(Path(*[folder.name, fld, name])), githuburl, checkurls
-                )
                 py_to_md(parsed, savepath, githubpath=fileurl)
 
                 summary[nid] = (depth, Path(savepath))

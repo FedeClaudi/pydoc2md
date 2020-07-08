@@ -14,7 +14,7 @@ Contents
 --------
 # line: 8 - `get_github_url`
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/pydoc2md/main.py#L8) online
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/main.py#L8) online
 #### function definition
 
 
@@ -37,7 +37,7 @@ def get_github_url(path, githuburl, checkurls):
 --------
 # line: 27 - `main`
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/pydoc2md/main.py#L27) online
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/main.py#L27) online
 #### function definition
 
 

@@ -1,4 +1,4 @@
-# from pydoc2md import main
+from pydoc2md import main
 
 # main(
 #     "/Users/federicoclaudi/Documents/Github/BrainRender/brainrender",
@@ -6,4 +6,4 @@
 #     githuburl="https://github.com/BrancoLab/BrainRender/tree/brainglobeintegration",
 # )
 
-# main("pydoc2md", "Docs", githuburl="https://github.com/FedeClaudi/pydoc2md")
+main("pydoc2md", "Docs", githuburl="https://github.com/FedeClaudi/pydoc2md")

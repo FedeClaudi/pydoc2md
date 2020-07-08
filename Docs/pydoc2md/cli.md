@@ -5,28 +5,21 @@
 Contents
 ========
 
-* [line: 5 - `run`](#line-5---run)
+* [**`run`** [#5]](#run-5)
 
 
 &nbsp;
 
 --------
-# line: 5 - `run`
+# **`run`** [#5]
   
 Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/cli.py#L5) online
-#### function definition
-
 
 ```python
 def run(projectdir, savedir):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
-
-"""
- no docstring 
-"""
-```
+no docstring

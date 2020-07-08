@@ -5,30 +5,28 @@
 Contents
 ========
 
-* [line: 5 - `parse_pyfile`](#line-5---parse_pyfile)
+* [**`parse_pyfile`** [#5]](#parse_pyfile-5)
 
 
 &nbsp;
 
 --------
-# line: 5 - `parse_pyfile`
+# **`parse_pyfile`** [#5]
   
 Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/parse.py#L5) online
-#### function definition
-
 
 ```python
 def parse_pyfile(filepath):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
+```text
+Given a .py file, uses AST to find all classes defined in it
 
-"""
-        Given a .py file, uses AST to find all classes defined in it
-        with their methods, docstrings etc.
-    :param filepath: str, path to a .py
-"""
+with their methods, docstrings etc.
+
+:param filepath: str, path to a .py
+
 ```

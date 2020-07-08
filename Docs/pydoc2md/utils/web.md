@@ -5,28 +5,21 @@
 Contents
 ========
 
-* [line: 4 - `check_url`](#line-4---check_url)
+* [**`check_url`** [#4]](#check_url-4)
 
 
 &nbsp;
 
 --------
-# line: 4 - `check_url`
+# **`check_url`** [#4]
   
 Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/web.py#L4) online
-#### function definition
-
 
 ```python
 def check_url(url):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
-
-"""
- no docstring 
-"""
-```
+no docstring

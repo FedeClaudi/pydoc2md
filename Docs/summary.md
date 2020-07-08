@@ -8,5 +8,6 @@
     * [utils.md](pydoc2md/utils/utils.md)  
         * [web.md](pydoc2md/utils/web.md)  
         * [write.md](pydoc2md/utils/write.md)  
+        * [text.md](pydoc2md/utils/text.md)  
         * [parse.md](pydoc2md/utils/parse.md)  
         * [path_utils.md](pydoc2md/utils/path_utils.md)

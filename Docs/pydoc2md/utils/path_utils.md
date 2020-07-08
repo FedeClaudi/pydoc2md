@@ -6,17 +6,15 @@ Contents
 ========
 
 * [**Folder**](#folder)
-* [line: 6 - `__init__`](#line-6---__init__)
-* [line: 10 - `get_folder_structure`](#line-10---get_folder_structure)
-* [line: 56 - `get_files`](#line-56---get_files)
-* [line: 73 - `get_pyfiles`](#line-73---get_pyfiles)
-* [line: 81 - `get_subdirs`](#line-81---get_subdirs)
-* [line: 20 - `add_subdirs`](#line-20---add_subdirs)
+	* [**`__init__`** [#6]](#__init__-6)
+* [**`get_folder_structure`** [#10]](#get_folder_structure-10)
+* [**`get_files`** [#56]](#get_files-56)
+* [**`get_pyfiles`** [#73]](#get_pyfiles-73)
+* [**`get_subdirs`** [#81]](#get_subdirs-81)
+* [**`add_subdirs`** [#20]](#add_subdirs-20)
 
 
 &nbsp;
-
---------
 
 --------
 # **Folder**
@@ -25,149 +23,125 @@ Contents
 
 
 &nbsp;
-
---------
-# line: 6 - `__init__`
+## **`__init__`** [#6]
   
 Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/path_utils.py#L6) online
-#### function definition
-
 
 ```python
 def __init__(self, path):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
-
-"""
- no docstring 
-"""
-```
+no docstring
 
 &nbsp;
 
 --------
-# line: 10 - `get_folder_structure`
+# **`get_folder_structure`** [#10]
   
 Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/path_utils.py#L10) online
-#### function definition
-
 
 ```python
 def get_folder_structure(folder):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
+```text
+Iteratively go through a folder
 
-"""
-    Iteratively go through a folder
-    structure finding subfolders and files.
-    Returns a treelib.Tree object with the files
-    hierarchy
-    
-    :param folder: pathlib.Path object
-"""
+structure finding subfolders and files.
+
+Returns a treelib.Tree object with the files
+
+hierarchy
+
+:param folder: pathlib.Path object
+
 ```
 
 &nbsp;
 
 --------
-# line: 56 - `get_files`
+# **`get_files`** [#56]
   
 Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/path_utils.py#L56) online
-#### function definition
-
 
 ```python
 def get_files(folder, restrict_to_folder=False):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
+```text
+Gets all files in a folder + subfolders
 
-"""
-    Gets all files in a folder + subfolders
-    :param folder: pathlib.Path object
-    :param restrict_to_folder: bool. If false also
-        the files in the subdirectories are found
-"""
+:param folder: pathlib.Path object
+
+:param restrict_to_folder: bool. If false also
+
+the files in the subdirectories are found
+
 ```
 
 &nbsp;
 
 --------
-# line: 73 - `get_pyfiles`
+# **`get_pyfiles`** [#73]
   
 Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/path_utils.py#L73) online
-#### function definition
-
 
 ```python
 def get_pyfiles(folder):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
+```text
+Gets all .py files in a folder + subfolers
 
-"""
-    Gets all .py files in a folder + subfolers
-    :param folder: pathlib.Path object
-"""
+:param folder: pathlib.Path object
+
 ```
 
 &nbsp;
 
 --------
-# line: 81 - `get_subdirs`
+# **`get_subdirs`** [#81]
   
 Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/path_utils.py#L81) online
-#### function definition
-
 
 ```python
 def get_subdirs(folder):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
+```text
+Gets all subdirectories of a folder
 
-"""
-    Gets all subdirectories of a folder
-    :param folder: pathlib.Path object
-"""
+:param folder: pathlib.Path object
+
 ```
 
 &nbsp;
 
 --------
-# line: 20 - `add_subdirs`
+# **`add_subdirs`** [#20]
   
 Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/path_utils.py#L20) online
-#### function definition
-
 
 ```python
 def add_subdirs(fld, tree):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
-
-"""
- no docstring 
-"""
-```
+no docstring

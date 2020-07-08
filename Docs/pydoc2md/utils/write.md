@@ -5,206 +5,167 @@
 Contents
 ========
 
-* [line: 5 - `add_header`](#line-5---add_header)
-* [line: 14 - `add_github_link`](#line-14---add_github_link)
-* [line: 26 - `add_docstring`](#line-26---add_docstring)
-* [line: 37 - `add_class_to_md`](#line-37---add_class_to_md)
-* [line: 70 - `add_func_to_md`](#line-70---add_func_to_md)
-* [line: 89 - `py_to_md`](#line-89---py_to_md)
-* [line: 116 - `folder_md`](#line-116---folder_md)
-* [line: 122 - `write_summary_file`](#line-122---write_summary_file)
+* [**`add_header`** [#6]](#add_header-6)
+* [**`add_github_link`** [#15]](#add_github_link-15)
+* [**`add_def_and_docstring`** [#28]](#add_def_and_docstring-28)
+* [**`add_class_to_md`** [#56]](#add_class_to_md-56)
+* [**`add_func_to_md`** [#84]](#add_func_to_md-84)
+* [**`py_to_md`** [#99]](#py_to_md-99)
+* [**`folder_md`** [#126]](#folder_md-126)
+* [**`write_summary_file`** [#132]](#write_summary_file-132)
 
 
 &nbsp;
 
 --------
-# line: 5 - `add_header`
+# **`add_header`** [#6]
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L5) online
-#### function definition
-
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L6) online
 
 ```python
 def add_header(md, nlines, level, title):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
-
-"""
- no docstring 
-"""
-```
+no docstring
 
 &nbsp;
 
 --------
-# line: 14 - `add_github_link`
+# **`add_github_link`** [#15]
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L14) online
-#### function definition
-
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L15) online
 
 ```python
 def add_github_link(md, githubpath, lineno):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
-
-"""
- no docstring 
-"""
-```
+no docstring
 
 &nbsp;
 
 --------
-# line: 26 - `add_docstring`
+# **`add_def_and_docstring`** [#28]
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L26) online
-#### function definition
-
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L28) online
 
 ```python
-def add_docstring(md, doc):
+def add_def_and_docstring(md, definition, doc):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
-
-"""
- no docstring 
-"""
-```
+no docstring
 
 &nbsp;
 
 --------
-# line: 37 - `add_class_to_md`
+# **`add_class_to_md`** [#56]
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L37) online
-#### function definition
-
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L56) online
 
 ```python
 def add_class_to_md(md, cl, githubpath=None):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
+```text
+Adds a class docstring and definition to the
 
-"""
-    Adds a class docstring and definition to the
-    md file, including all class methods.
-"""
+md file, including all class methods.
+
 ```
 
 &nbsp;
 
 --------
-# line: 70 - `add_func_to_md`
+# **`add_func_to_md`** [#84]
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L70) online
-#### function definition
-
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L84) online
 
 ```python
 def add_func_to_md(md, cl, githubpath=None):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
+```text
+Adds a function docstring and definition to the
 
-"""
-    Adds a function docstring and definition to the
-    md file
-"""
+md file
+
 ```
 
 &nbsp;
 
 --------
-# line: 89 - `py_to_md`
+# **`py_to_md`** [#99]
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L89) online
-#### function definition
-
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L99) online
 
 ```python
 def py_to_md(data, savepath, githubpath=None):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
+```text
+Writes to a markdown file the content of a .py file.
 
-"""
-    Writes to a markdown file the content of a .py file.
-    It writes the name of all the classes and their methods with
-    the corresponding docstrings as well as all functions that
-    are not class methods.
-    
-    :param data: dictionary of classes that belong to a .py,
-                    from parse_pyfile
-    :param savepath: str, path to the .md file to save
-    :param githubpath: str, optional. URL to the same .py on github
-"""
+It writes the name of all the classes and their methods with
+
+the corresponding docstrings as well as all functions that
+
+are not class methods.
+
+:param data: dictionary of classes that belong to a .py,
+
+from parse_pyfile
+
+:param savepath: str, path to the .md file to save
+
+:param githubpath: str, optional. URL to the same .py on github
+
 ```
 
 &nbsp;
 
 --------
-# line: 116 - `folder_md`
+# **`folder_md`** [#126]
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L116) online
-#### function definition
-
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L126) online
 
 ```python
 def folder_md(savepath):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
-
-"""
- no docstring 
-"""
-```
+no docstring
 
 &nbsp;
 
 --------
-# line: 122 - `write_summary_file`
+# **`write_summary_file`** [#132]
   
-Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L122) online
-#### function definition
-
+Check the [***``source code``***](https://github.com/FedeClaudi/pydoc2md/blob/master/pydoc2md/utils/write.py#L132) online
 
 ```python
 def write_summary_file(summary, savepath):
 ```
-##### docstring
-  
 
+&nbsp;  
+docstring:
 
-```python
-
-"""
- no docstring 
-"""
-```
+no docstring

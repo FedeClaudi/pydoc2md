@@ -1,5 +1,23 @@
 import ast
 from astunparse import unparse
+from collections import namedtuple
+
+Import = namedtuple("Import", ["module", "name", "alias"])
+
+
+def get_imported_modules(p):
+    imports = []
+    for elem in ast.walk(p):
+        if isinstance(elem, ast.Import):
+            module = []
+        elif isinstance(elem, ast.ImportFrom):
+            module = elem.module.split(".")
+        else:
+            continue
+
+        for n in elem.names:
+            imports.append(Import(module, n.name.split("."), n.asname))
+    return imports
 
 
 def parse_pyfile(filepath):
@@ -11,6 +29,9 @@ def parse_pyfile(filepath):
 
     with open(filepath, "r") as f:
         p = ast.parse(f.read())
+
+    # Imports
+    # imports = get_imported_modules(p)
 
     # get all classes from the given python file.
     classes = [c for c in ast.walk(p) if isinstance(c, ast.ClassDef)]

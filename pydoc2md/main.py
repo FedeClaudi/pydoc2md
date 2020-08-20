@@ -79,7 +79,10 @@ def main(folder, savefolder, githuburl=None, checkurls=False):
 
                 py_to_md(parsed, savepath, githubpath=fileurl)
 
-                summary[nid] = (depth, Path(savepath))
+                summary[nid] = (
+                    depth,
+                    Path(savepath).relative_to(savefolder.parent),
+                )
 
         else:
             # Create a folder .md file
@@ -90,7 +93,10 @@ def main(folder, savefolder, githuburl=None, checkurls=False):
                 savepath = str(savefolder / (nid + ".md"))
 
             folder_md(savepath)
-            summary[nid] = (depth, Path(savepath))
+            summary[nid] = (
+                depth,
+                Path(savepath).relative_to(savefolder.parent),
+            )
 
     # Create summary file
     write_summary_file(summary, str(savefolder / "summary.md"))
